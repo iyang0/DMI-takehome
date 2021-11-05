@@ -42,3 +42,5 @@ router.post("", function(req, res){
 
   return res.json(strings);
 });
+
+module.exports = router;

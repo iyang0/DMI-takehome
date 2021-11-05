@@ -1,0 +1,3 @@
+[submodule "DMI-frontend"]
+	path = DMI-frontend
+	url = https://github.com/iyang0/DMI-frontend.git
