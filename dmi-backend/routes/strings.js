@@ -1,6 +1,6 @@
 const express = require("express");
 const fs = require('fs');
-const stringsPath = "../data/strings.json";
+const stringsPath = process.env.NODE_ENV==="test" ? "../data/testData.json" : "../data/strings.json";
 const stringsJson = require(stringsPath);
 let router = new express.Router();
 
@@ -35,12 +35,12 @@ router.post("", function(req, res){
   const str = req.body.string;
   let strings = stringsJson.strings;
   strings.unshift(str);
-  fs.writeFile('./data/strings.json', JSON.stringify({strings}, null, 2), function (err) {
+  fs.writeFile(stringsPath.slice(1), JSON.stringify({strings}, null, 2), function (err) {
     if(err) throw err;
     console.log('writing to strings.json');
   });
 
-  return res.json(strings);
+  return res.status(201).json(strings);
 });
 
 module.exports = router;
