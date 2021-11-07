@@ -1,5 +1,6 @@
 "use strict"
 const express = require("express");
+const cors = require('cors');
 const app = express();
 app.use(express.json());
 
@@ -8,6 +9,9 @@ const { NotFoundError } = require("./expressError");
 
 //list of strings routes
 const stringsRoutes = require("./routes/strings");
+
+//allow cross site origin
+app.use(cors());
 
 app.use("/strings", stringsRoutes);
 
