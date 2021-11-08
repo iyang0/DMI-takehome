@@ -4,6 +4,7 @@ const stringsPath = process.env.NODE_ENV==="test" ? "../data/testData.json" : ".
 const stringsJson = require(stringsPath);
 let router = new express.Router();
 
+const { BadRequestError } = require("../expressError");
 
 /* GET /strings 
   
@@ -33,6 +34,9 @@ output: status: 201, array of all strings
 router.post("", function(req, res){
   
   const str = req.body.string;
+  if(str.length === 0){
+    throw new BadRequestError(message = 'String needs at least one character.');
+  }
   let strings = stringsJson.strings;
   strings.unshift(str);
   fs.writeFile(stringsPath.slice(1), JSON.stringify({strings}, null, 2), function (err) {
